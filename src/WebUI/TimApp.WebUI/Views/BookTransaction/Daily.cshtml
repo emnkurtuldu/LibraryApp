@@ -1,0 +1,40 @@
+﻿@using TimApp.Applicaiton.Dto
+@model ICollection<BookTransactionDto>
+
+<h2>Günlük Rapor</h2>
+<br />
+<br />
+<div>
+    <table class="table table-bordered">
+        <tr>
+            <td class="title">ISBN</td>
+            <td class="title">Üye Numarası</td>
+            <td class="title">Son Teslim Tarihi</td>
+            <td class="title">Teslim Edilme Tarihi</td>
+            <td class="title">Gecikme Cezası</td>
+            <td class="title" style="width:10px;"></td>
+        </tr>
+        @foreach (var bookTransaction in Model)
+        {
+            <tr>
+                <td>@bookTransaction.RelatedISBN</td>
+                <td>@bookTransaction.RelatedMemberId</td>
+                <td>@bookTransaction.DueDate</td>
+                <td>@bookTransaction.DeliveredDate</td>
+                <td>@bookTransaction.DelayPenaltyFee</td>
+                @{
+                    if (bookTransaction.DeliveredDate != null)
+                    {
+                        <td><p style="color:red">@((bookTransaction.DeliveredDate.Value.Date - bookTransaction.DueDate).TotalDays) gün gecikmeli teslim edilmiştir</p></td>
+                    }
+                    else
+                    {
+                        <td><a href="@Url.Action("ReceiveBook","BookTransaction")" class="btn btn-sm btn-outline-success" style="width: max-content;" data-bs-toggle="modal" data-bs-target="@("#ReceiveBookModal-"+bookTransaction.Id)">Teslim al</a></td>
+                        @await Html.PartialAsync("_PartialReceiveBook",bookTransaction)
+                    }
+                }
+
+            </tr>
+        }
+    </table>
+</div>

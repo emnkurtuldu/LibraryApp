@@ -1,0 +1,38 @@
+﻿@using TimApp.Applicaiton.Dto
+@model BookTransactionDto
+
+
+<div class="modal fade" id="RentBookModal-@Model.BookId" tabindex="-1" aria-labelledby="RentBookModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form asp-action="RentBook" asp-controller="BookTransaction" method="post">
+            <div asp-validation-summary="ModelOnly"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Kitap kirala</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="hidden" asp-for="BookId" />
+                        <label>Kirabın ISBN</label>
+                        <input asp-for="RelatedISBN" readonly class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Müşteri Numarası</label>
+                        <input asp-for="RelatedMemberId" required class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Teslim tarihi</label>
+                        <input asp-for="DueDate" readonly class="form-control" />
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

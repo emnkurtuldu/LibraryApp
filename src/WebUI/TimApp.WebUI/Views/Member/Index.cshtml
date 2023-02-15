@@ -1,0 +1,28 @@
+﻿@using TimApp.Applicaiton.Dto
+@model ICollection<MemberDto>
+
+<h2>Üyeler</h2>
+<br />
+<br />
+<div>
+     @await Html.PartialAsync("_PartialAddMember", new MemberDto())
+    <hr />
+    <table class="table table-bordered">
+        <tr>
+            <td class="title">Üye Numarası</td>
+            <td class="title">Kitap Adı</td>
+            <td class="title">Yazar</td>
+            <td class="title" style="width:10px;"></td>
+        </tr>
+        @foreach (var member in Model)
+        {
+            <tr>
+                <td>@member.MemberId</td>
+                <td>@member.Name</td>
+                <td>@member.Surname</td>
+                <td><a href="@Url.Action("EditMember","Member", new{ id = member.Id})" class="btn btn-sm btn-outline-secondary" style="width: max-content;" data-bs-toggle="modal" data-bs-target="@("#EditMemberModal-"+member.Id)">Düzenle</a></td>
+                @await Html.PartialAsync("_PartialEditMember",member)
+            </tr>
+        }
+    </table>
+</div>

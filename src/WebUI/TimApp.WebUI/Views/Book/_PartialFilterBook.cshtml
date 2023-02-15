@@ -1,0 +1,23 @@
+﻿@using TimApp.Applicaiton.Dto
+@model BookDto
+
+
+<div class="panel panel-body">
+    <form asp-action="Index" method="post">
+        <div class="panel-body row">
+            <div class="form-group col-md-6">
+                <label>ISBN</label>
+                <input type="text" asp-for="ISBN" class="form-control" id="usr">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Kitap Adı</label>
+                <input asp-for="Name" class="form-control" />
+            </div>
+
+        </div>
+        <div class="modal-footer" style="border:hidden">
+            <button type="submit" class="btn btn-success btn-lg">Filtrele</button>
+        </div>
+    </form>
+
+</div>

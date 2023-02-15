@@ -1,0 +1,35 @@
+﻿@using TimApp.Applicaiton.Dto
+@model ICollection<BookDto>
+@{
+    var DeliveryDate = TimApp.Persistence.GlobalUtils.GetBookDeliveryDate(DateTime.Now.Date);
+}
+<h2>Kitaplar</h2>
+<br />
+<br />
+<div>
+    @await Html.PartialAsync("_PartialAddBook", new BookDto())
+    <hr />
+    @await Html.PartialAsync("_PartialFilterBook",new BookDto())
+    <hr />
+    <table class="table table-bordered">
+        <tr>
+            <td class="title">ISBN</td>
+            <td class="title">Kitap Adı</td>
+            <td class="title">Yazar</td>
+            <td class="title" style="width:10px;"></td>
+            <td class="title" style="width:10px;"></td>
+        </tr>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.ISBN</td>
+                <td>@book.Name</td>
+                <td>@book.Author</td>
+                <td><a href="@Url.Action("RentBook","BookTransaction")" class="btn btn-sm btn-outline-success" style="width: max-content;" data-bs-toggle="modal" data-bs-target="@("#RentBookModal-"+book.Id)">Emanet tanımla</a></td>
+                @await Html.PartialAsync("_PartialRentBook",new BookTransactionDto(){BookId = book.Id, RelatedISBN = book.ISBN, DueDate = DeliveryDate })
+                <td><a href="@Url.Action("EditBook","Book", new{ id = book.Id})" class="btn btn-sm btn-outline-secondary" style="width: max-content;" data-bs-toggle="modal" data-bs-target="@("#EditBookModal-"+book.Id)">Düzenle</a></td>
+                @await Html.PartialAsync("_PartialEditBook",book)
+            </tr>
+        }
+    </table>
+</div>

@@ -1,0 +1,42 @@
+﻿@using TimApp.Applicaiton.Dto
+@model MemberDto
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddMember">
+    Yeni üye ekle
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="AddMemberModal" tabindex="-1" aria-labelledby="AddMemberModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form asp-action="AddMember" method="post">
+            <div asp-validation-summary="ModelOnly"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Üye ekle</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Üye numarası</label>
+                        <input asp-for="MemberId" required class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Üye Adı</label>
+                        <input asp-for="Name" required class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Üye Soyadı</label>
+                        <input asp-for="Surname" class="form-control" />
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
